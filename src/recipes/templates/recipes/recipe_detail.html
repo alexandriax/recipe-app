@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ recipe.name }}</title>
+  <link rel="stylesheet" href="{% static 'recipes/css/recipe-detail.css' %}">
+</head>
+<body>
+  <div class="recipe-detail-container">
+    <h1>{{ recipe.name }}</h1>
+
+    {% if recipe.image %}
+      <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="recipe-img" />
+    {% else %}
+      <img src="{% static 'media/no_picture.png' %}" alt="No image available" class="recipe-img" />
+    {% endif %}
+
+    <p><strong>Cooking Time:</strong> {{ recipe.cooking_time }} minutes</p>
+    <p><strong>Difficulty:</strong> {{ recipe.difficulty }}</p>
+
+    <h3>Instructions:</h3>
+    <p>{{ recipe.instructions|linebreaks }}</p>
+
+    <h3>Ingredients:</h3>
+    <ul>
+      {% for ingredient in recipe.ingredients.all %}
+        <li>{{ ingredient.name }}</li>
+      {% endfor %}
+    </ul>
+
+    <a href="{% url 'recipes:recipe_list' %}">← Back to recipes</a>
+  </div>
+</body>
+</html>
