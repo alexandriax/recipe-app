@@ -1,0 +1,47 @@
+body {
+    background-color: #fff9f5;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.logout-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.logout-img {
+    width: 180px;
+    margin: 1rem 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #6b4c3b;
+    margin-bottom: 0.5rem;
+    text-transform: lowercase;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #7a5e4b;
+    margin-bottom: 1rem;
+}
+
+.recipe-link {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background-color: #ffb347;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.recipe-link:hover {
+    background-color: #ffa726;
+}

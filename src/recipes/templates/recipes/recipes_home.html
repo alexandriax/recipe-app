@@ -19,6 +19,18 @@
     <div class="search-box">
       <input type="text" placeholder="search recipes..." disabled>
     </div>
+    <div class="nav-buttons">
+        {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="recipe-link">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="recipe-link">Login</a>
+        {% endif %}
+      </div>
+    {% if user.is_authenticated %}
+      <p>hi, {{ user.username }}!</p>
+    {% endif %}
+
+      
   </nav>
 
   <!-- Hero Section -->

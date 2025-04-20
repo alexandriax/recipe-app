@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login • Cozy Chef</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/login.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Welcome Back, Chef 🐾</h1>
+
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="login-button">Login</button>
+        </form>
+
+        <img src="{% static 'recipes/images/chef-cat.png' %}" alt="Chef Cat" class="login-cat" />
+    </div>
+</body>
+</html>
+

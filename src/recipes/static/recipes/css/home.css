@@ -110,5 +110,25 @@ h1 {
   font-size: 1rem;
 }
 
+.recipe-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #ffb347;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.recipe-link:hover {
+  background-color: #ff914d;
+}
+
+.nav-buttons {
+  margin-top: 1rem;
+}
+
+
 
   

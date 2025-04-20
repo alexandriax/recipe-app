@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logged Out - Cozy Chef</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/logout.css' %}">
+</head>
+<body>
+    <div class="logout-container">
+        <h1>see you later!</h1>
+        <img src="{% static 'recipes/images/chef-cat.png' %}" alt="Sad Chef Cat" class="logout-img" />
+        <p>cook with us again!</p>
+        <a href="{% url 'login' %}" class="recipe-link">log back in</a>
+    </div>
+</body>
+</html>
