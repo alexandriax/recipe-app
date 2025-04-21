@@ -123,12 +123,27 @@ h1 {
 
 .recipe-link:hover {
   background-color: #ff914d;
+  border: none;
 }
 
 .nav-buttons {
   margin-top: 1rem;
 }
 
+.search-box button {
+  padding: 0.5rem 1rem;
+  background-color: #ffb347;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
 
+.search-box button:hover {
+  background-color: #ff914d;
+}
 
   

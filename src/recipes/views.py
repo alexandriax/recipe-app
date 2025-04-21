@@ -4,6 +4,12 @@ from .models import Recipe
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from .forms import RecipeSearchForm
+import pandas as pd
+from .utils import get_chart
+from django.db.models import Q
+
+
 
 def home(request):
     recipes = Recipe.objects.all()
@@ -18,6 +24,35 @@ def recipe_list(request):
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
+
+@login_required
+def recipe_search(request):
+    form = RecipeSearchForm(request.GET or None)
+    results = None
+    results_table = None
+    chart = None 
+
+    if request.method == 'GET' and form.is_valid():
+        query = form.cleaned_data['query']
+        chart_type = form.cleaned_data['chart_type']
+        results = Recipe.objects.filter(
+          Q(name__icontains=query) | Q(ingredients__name__icontains=query)
+        ).distinct()
+
+        if results:
+            df = pd.DataFrame(results.values('name', 'cooking_time', 'difficulty'))
+            results_table = df.to_html(index=False)
+            chart = get_chart(chart_type, df)
+
+    return render(request, 'recipes/search.html', {
+        'form': form,
+        'results': results,
+        'results_table': results_table,
+        'chart': chart  
+
+    })
+
+
 
 def login_view(request):
     error_message = None

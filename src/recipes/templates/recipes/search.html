@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Recipes</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/search.css' %}">
+</head>
+<body>
+    <div class="search-container">
+        <h1>Search Recipes</h1>
+
+        <form method="GET" action="">
+            {% csrf_token %}
+            <div class="search-form">
+                {{ form.query }}
+                {{ form.chart_type }}
+                <button type="submit">Go</button>
+            </div>
+        </form>
+        
+
+        <br>
+
+        {% if results %}
+            <h2>Search Results</h2>
+            <div class="search-cards">
+                {% if chart %}
+                   <img src="data:image/png;base64,{{ chart|safe }}" alt="Recipe Chart">
+                {% endif %}
+
+                {% for recipe in results %}
+                    <div class="search-card">
+                        <a href="{% url 'recipes:detail' recipe.pk %}">
+                            {% if recipe.image %}
+                                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+                            {% else %}
+                                <img src="{% static 'recipes/images/no_picture.png' %}" alt="No image">
+                            {% endif %}
+                            <div class="card-info">
+                                <h3>{{ recipe.name }}</h3>
+                                <p><strong>Time:</strong> {{ recipe.cooking_time }} mins</p>
+                                <p><strong>Difficulty:</strong> {{ recipe.difficulty }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif results is not None %}
+            <h3>No results found.</h3>
+        {% endif %}
+    </div>
+</body>
+</html>
+
+

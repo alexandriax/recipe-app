@@ -3,10 +3,15 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import Recipe
 from ingredients.models import Ingredient  
+from django.contrib.auth.models import User
+
 
 class RecipeModelTest(TestCase):
 
     def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+
         self.recipe = Recipe.objects.create(
             name="Vegan Mac & Cheese",
             cooking_time=30,
@@ -42,6 +47,8 @@ class RecipeModelTest(TestCase):
 class RecipeViewsTest(TestCase):
 
     def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
         # Recipe with image
         self.recipe_with_image = Recipe.objects.create(
             name="Chickpea Salad",
@@ -80,5 +87,17 @@ class RecipeViewsTest(TestCase):
         response = self.client.get(reverse("recipes:recipe_list"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'no_picture.png')  # fallback image
+
+    def test_search_view_renders(self):
+        response = self.client.get(reverse('recipes:recipe_search'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_search_returns_results(self):
+        response = self.client.get(reverse('recipes:recipe_search'), {
+            'query': 'chickpea',
+            'chart_type': '#1'  # bar chart
+        })
+        self.assertContains(response, "Chickpea Salad")
+        
 
 
