@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from recipes.views import login_view, logout_view
+from src.recipes.views import login_view, logout_view
 
 
 urlpatterns = [
