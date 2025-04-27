@@ -10,7 +10,7 @@ from .utils import get_chart
 from django.db.models import Q
 from django.contrib import messages
 from .forms import RecipeForm
-from ingredients.models import Ingredient
+from src.ingredients.models import Ingredient
 
 
 
