@@ -23,7 +23,7 @@ from src.recipes.views import login_view, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(('recipes.urls', 'recipes'), namespace='recipes')),
+    path('', include(('src.recipes.urls', 'recipes'), namespace='recipes')),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
 ] 
