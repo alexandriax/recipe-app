@@ -1,4 +1,5 @@
 from django import forms
+from .models import Recipe
 
 CHART_CHOICES = (
     ('#1', 'Bar Chart'),
@@ -17,3 +18,12 @@ class RecipeSearchForm(forms.Form):
         widget=forms.Select(),
         label='Chart Type'
     )
+
+class RecipeForm(forms.ModelForm):
+    ingredients = forms.CharField(
+        help_text="Separate ingredients with commas (e.g., sugar, flour, water)"
+    )
+
+    class Meta:
+        model = Recipe
+        fields = ['name', 'cooking_time', 'ingredients', 'instructions', 'image']

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a New Recipe</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/home.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">cozy chef</div>
+  <div class="nav-links">
+    <a href="{% url 'recipes:home' %}">home</a>
+    <a href="{% url 'recipes:recipe_list' %}">recipes</a>
+    <a href="{% url 'recipes:add_recipe' %}">add recipe</a>
+    <a href="{% url 'recipes:about' %}">about</a>
+  </div>
+</nav>
+
+{% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li class="success-message">{{ message }}</li>
+      {% endfor %}
+    </ul>
+{% endif %}
+
+
+<div class="form-container">
+    <h1>Add a New Recipe</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="recipe-link">Submit Recipe</button>
+    </form>
+</div>
+
+<footer class="site-footer">
+  <p>developed by <a href="https://alexandriax.github.io/updated-portfolio/" target="_blank">alexandria</a></p>
+</footer>
+
+</body>
+</html>

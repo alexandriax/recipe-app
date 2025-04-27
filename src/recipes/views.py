@@ -8,6 +8,12 @@ from .forms import RecipeSearchForm
 import pandas as pd
 from .utils import get_chart
 from django.db.models import Q
+from django.contrib import messages
+from .forms import RecipeForm
+from ingredients.models import Ingredient
+
+
+
 
 
 
@@ -51,6 +57,32 @@ def recipe_search(request):
         'chart': chart  
 
     })
+
+def about(request):
+    return render(request, 'recipes/about.html')
+
+
+@login_required
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            recipe = form.save(commit=False)  # don't save yet
+            recipe.save()
+
+            # Process the ingredients
+            ingredients_text = form.cleaned_data['ingredients']
+            ingredient_names = [name.strip().lower() for name in ingredients_text.split(',')]
+
+            for name in ingredient_names:
+                ingredient_obj, created = Ingredient.objects.get_or_create(name=name)
+                recipe.ingredients.add(ingredient_obj)
+
+            return redirect('recipes:recipe_list')  # or wherever you want
+    else:
+        form = RecipeForm()
+
+    return render(request, 'recipes/add_recipe.html', {'form': form})
 
 
 

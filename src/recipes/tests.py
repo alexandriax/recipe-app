@@ -98,6 +98,23 @@ class RecipeViewsTest(TestCase):
             'chart_type': '#1'  # bar chart
         })
         self.assertContains(response, "Chickpea Salad")
+
+    def test_add_recipe_page_loads(self):
+        response = self.client.get(reverse('recipes:add_recipe'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Add a New Recipe')
+
+    def test_add_recipe_submission(self):
+        ingredient = Ingredient.objects.create(name="Broccoli")
+        response = self.client.post(reverse('recipes:add_recipe'), {
+            'name': 'Broccoli Stir Fry',
+            'cooking_time': 15,
+            'ingredients': [ingredient.id],
+            'instructions': 'Stir fry the broccoli with garlic.'
+        })
+        self.assertEqual(response.status_code, 302)  # should redirect after success
+        self.assertTrue(Recipe.objects.filter(name='Broccoli Stir Fry').exists())
+
         
 
 

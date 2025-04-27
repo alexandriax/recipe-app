@@ -14,7 +14,8 @@
     <div class="nav-links">
       <a href="#">home</a>
       <a href="{% url 'recipes:recipe_list' %}">recipes</a>
-      <a href="#">about</a>
+      <a href="{% url 'recipes:about' %}">about</a>
+      
     </div>
     <div class="search-box">
         <form method="GET" action="{% url 'recipes:recipe_search' %}">
@@ -24,6 +25,7 @@
       </div>
       
     <div class="nav-buttons">
+        
         {% if user.is_authenticated %}
           <a href="{% url 'logout' %}" class="recipe-link">Logout</a>
         {% else %}
@@ -43,6 +45,8 @@
     <h1>welcome to cozy chef</h1>
     <p class="intro">start cooking with our plant-based recipes!</p>
     <a href="{% url 'recipes:recipe_list' %}" class="recipe-link">view all recipes</a>
+    <a href="{% url 'recipes:add_recipe' %}" class="recipe-link">add a recipe</a>
+
   </div>
 
   <!-- Featured Section -->
@@ -62,6 +66,14 @@
     </div>
   </div>
 
+  <footer class="site-footer">
+    <p>developed by <a href="https://alexandriax.github.io/updated-portfolio/" target="_blank">Alexandria Hamilton</a></p>
+    <div class="footer-links">
+      <a href="https://github.com/alexandriax" target="_blank">github</a> |
+      <a href="https://x.com/alexandria71618" target="_blank">twitter</a> |
+      <a href="mailto:alexandriahmailtonx@gmail.com">contact</a>
+    </div>
+  </footer>
 </body>
 </html>
 
